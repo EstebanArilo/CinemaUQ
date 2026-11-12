@@ -7,4 +7,9 @@ public class Punto {
     private LocalDate fechaObtencion;
     private LocalDate fechaVencimiento;
 
+    public Punto(double cantidad, LocalDate fechaObtencion, LocalDate fechaVencimiento) {
+        this.cantidad = cantidad;
+        this.fechaObtencion = fechaObtencion;
+        this.fechaVencimiento = fechaVencimiento;
+    }
 }
