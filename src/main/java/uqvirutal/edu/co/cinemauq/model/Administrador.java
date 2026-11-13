@@ -5,10 +5,23 @@ import java.util.ArrayList;
 
 public class Administrador extends Usuario {
     private ArrayList<ProductoConfiteria> listProductos;
-
+    private ServicioNotificacion servicioNotificacion;
     public Administrador(String id, String nombre, String correo, String contraseña) {
         super(id, nombre, correo, contraseña);
         this.listProductos = new ArrayList<>();
+        this.servicioNotificacion = servicioNotificacion;
+    }
+
+    public ArrayList<ProductoConfiteria> getListProductos() {
+        return listProductos;
+    }
+
+    public void setListProductos(ArrayList<ProductoConfiteria> listProductos) {
+        this.listProductos = listProductos;
+    }
+
+    public ServicioNotificacion getServicioNotificaciones() {
+        return servicioNotificacion;
     }
 
     public void gestionarPeliculas(Pelicula pelicula) {
@@ -51,6 +64,14 @@ public class Administrador extends Usuario {
         System.out.println("Reporte generado por el administrador exitosamente.");
     }
 
+
+    public void setServicioNotificaciones(ServicioNotificacion servicioNotificacion) {
+        this.servicioNotificacion = servicioNotificacion;
+    }
+
+    /**
+     * Permite al administrador crear un combo utilizando el Builder.
+     */
     public ComboConfiteria crearCombo(String id, String nombre, double descuento, ArrayList<ProductoConfiteria> productosBase) {
         ComboPersonalizado.Builder builder = new ComboPersonalizado.Builder()
                 .setIdProducto(id)
@@ -80,11 +101,6 @@ public class Administrador extends Usuario {
         return this.listProductos.remove(producto);
     }
 
-    public ArrayList<ProductoConfiteria> getListProductos() {
-        return listProductos;
-    }
-
-    public void setListProductos(ArrayList<ProductoConfiteria> listProductos) {
-        this.listProductos = listProductos;
-    }
 }
+
+
