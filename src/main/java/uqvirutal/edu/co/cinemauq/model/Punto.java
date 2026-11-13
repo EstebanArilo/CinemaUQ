@@ -12,4 +12,28 @@ public class Punto {
         this.fechaObtencion = fechaObtencion;
         this.fechaVencimiento = fechaVencimiento;
     }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public LocalDate getFechaObtencion() {
+        return fechaObtencion;
+    }
+
+    public void setFechaObtencion(LocalDate fechaObtencion) {
+        this.fechaObtencion = fechaObtencion;
+    }
+
+    public LocalDate getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
 }
