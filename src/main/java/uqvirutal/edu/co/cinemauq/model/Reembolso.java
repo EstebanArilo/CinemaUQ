@@ -2,7 +2,6 @@ package uqvirutal.edu.co.cinemauq.model;
 
 import java.time.LocalDateTime;
 
-import java.time.LocalDateTime;
 
 public class Reembolso {
     private String id;
