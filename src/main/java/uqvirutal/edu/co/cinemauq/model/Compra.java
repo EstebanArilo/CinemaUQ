@@ -10,6 +10,8 @@ public class Compra {
     private String estadoCompra;
     private ArrayList<Entrada> entradas;
     private ArrayList<ProductoConfiteria> productosConfiteria;
+    private Reembolso reembolso;
+    private TarjetaVirtual tarjetaVirtual;
 
     private Compra(Builder builder) {
         this.idCompra = builder.idCompra;
@@ -18,6 +20,7 @@ public class Compra {
         this.estadoCompra = builder.estadoCompra;
         this.entradas = builder.entradas;
         this.productosConfiteria = builder.productosConfiteria;
+        this.tarjetaVirtual = builder.tarjetaVirtual;
     }
 
     public String getIdCompra() { return idCompra; }
@@ -35,6 +38,7 @@ public class Compra {
         private String estadoCompra = "PENDIENTE";
         private ArrayList<Entrada> entradas = new ArrayList<>();
         private ArrayList<ProductoConfiteria> productosConfiteria = new ArrayList<>();
+        private TarjetaVirtual tarjetaVirtual;
 
         public Builder idCompra(String idCompra) {
             this.idCompra = idCompra;
@@ -72,5 +76,15 @@ public class Compra {
         public Compra build() {
             return new Compra(this);
         }
+    }
+    public Reembolso getReembolso() {
+        return reembolso;
+    }
+
+    public void setReembolso(Reembolso reembolso) {
+        this.reembolso = reembolso;
+    }
+    public TarjetaVirtual getTarjetaVirtual() {
+        return tarjetaVirtual;
     }
 }
