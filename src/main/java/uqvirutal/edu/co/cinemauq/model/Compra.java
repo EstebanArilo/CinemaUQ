@@ -7,9 +7,12 @@ public class Compra {
     private String idCompra;
     private LocalDateTime fechaHora;
     private double total;
-    private String estadoCompra;
+    private EstadoCompra estadoCompra;
     private ArrayList<Entrada> entradas;
     private ArrayList<ProductoConfiteria> productosConfiteria;
+    private Reembolso reembolso;
+    private TarjetaVirtual tarjetaVirtual;
+    private Funcion funcion;
 
     private Compra(Builder builder) {
         this.idCompra = builder.idCompra;
@@ -18,23 +21,28 @@ public class Compra {
         this.estadoCompra = builder.estadoCompra;
         this.entradas = builder.entradas;
         this.productosConfiteria = builder.productosConfiteria;
+        this.tarjetaVirtual = builder.tarjetaVirtual;
+        this.funcion = builder.funcion;
     }
 
     public String getIdCompra() { return idCompra; }
     public LocalDateTime getFechaHora() { return fechaHora; }
     public double getTotal() { return total; }
-    public String getEstadoCompra() { return estadoCompra; }
-    public void setEstadoCompra(String estadoCompra) { this.estadoCompra = estadoCompra; }
+    public EstadoCompra getEstadoCompra() { return estadoCompra; }
+    public void setEstadoCompra(EstadoCompra estadoCompra) { this.estadoCompra = estadoCompra; }
     public ArrayList<Entrada> getEntradas() { return entradas; }
     public ArrayList<ProductoConfiteria> getProductosConfiteria() { return productosConfiteria; }
+    public Funcion getFuncion() { return funcion; }
 
     public static class Builder {
         private String idCompra;
         private LocalDateTime fechaHora = LocalDateTime.now();
         private double total = 0.0;
-        private String estadoCompra = "PENDIENTE";
+        private EstadoCompra estadoCompra = EstadoCompra.PENDIENTE;;
         private ArrayList<Entrada> entradas = new ArrayList<>();
         private ArrayList<ProductoConfiteria> productosConfiteria = new ArrayList<>();
+        private TarjetaVirtual tarjetaVirtual;
+        private Funcion funcion;
 
         public Builder idCompra(String idCompra) {
             this.idCompra = idCompra;
@@ -45,7 +53,10 @@ public class Compra {
             this.fechaHora = fechaHora;
             return this;
         }
-
+        public Builder tarjetaVirtual(TarjetaVirtual tarjetaVirtual) {
+            this.tarjetaVirtual = tarjetaVirtual;
+            return this;
+        }
         public Builder agregarEntrada(Entrada entrada) {
             this.entradas.add(entrada);
             recalcularTotal();
@@ -57,7 +68,10 @@ public class Compra {
             recalcularTotal();
             return this;
         }
-
+        public Builder funcion(Funcion funcion) {
+            this.funcion = funcion;
+            return this;
+        }
         private void recalcularTotal() {
             double suma = 0.0;
             for (Entrada entrada : entradas) {
@@ -72,5 +86,15 @@ public class Compra {
         public Compra build() {
             return new Compra(this);
         }
+    }
+    public Reembolso getReembolso() {
+        return reembolso;
+    }
+
+    public void setReembolso(Reembolso reembolso) {
+        this.reembolso = reembolso;
+    }
+    public TarjetaVirtual getTarjetaVirtual() {
+        return tarjetaVirtual;
     }
 }

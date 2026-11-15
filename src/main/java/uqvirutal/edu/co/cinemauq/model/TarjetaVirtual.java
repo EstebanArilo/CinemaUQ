@@ -8,9 +8,7 @@ public class TarjetaVirtual {
     private double saldo;
     private boolean activa;
     private ArrayList<Movimiento> listMovimientos;
-
     private int contadorMovimientos = 1;
-
     public TarjetaVirtual(String numero, double saldo, boolean activa, ArrayList<Movimiento> listMovimientos) {
         this.numero = numero;
         this.saldo = saldo;
@@ -47,6 +45,13 @@ public class TarjetaVirtual {
         this.listMovimientos.add(movimiento);
     }
 
+    public TarjetaVirtual(String numero, double saldo, boolean activa) {
+        this.numero = numero;
+        this.saldo = saldo;
+        this.activa = activa;
+        this.listMovimientos = new ArrayList<>();
+    }
+
     public String getNumero() {
         return numero;
     }
@@ -78,4 +83,26 @@ public class TarjetaVirtual {
     public void setListMovimientos(ArrayList<Movimiento> listMovimientos) {
         this.listMovimientos = listMovimientos;
     }
+    public void descontarSaldo(double monto) {
+        this.saldo -= monto;
+        String idMov = "MOV-" + (this.listMovimientos.size() + 1);
+        this.listMovimientos.add(new Movimiento(
+                idMov,
+                TipoMovimiento.PAGO,
+                monto,
+                java.time.LocalDate.now()
+        ));
+    }
+
+    public void devolverSaldo(double monto) {
+        this.saldo += monto;
+        String idMov = "MOV-" + (this.listMovimientos.size() + 1);
+        this.listMovimientos.add(new Movimiento(
+                idMov,
+                TipoMovimiento.REEMBOLSO,
+                monto,
+                java.time.LocalDate.now()
+        ));
+    }
 }
+

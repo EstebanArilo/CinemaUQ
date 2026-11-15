@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class FachadaCompra {
     private int contadorCompras = 1;
-
+    private GestorReembolso gestorReembolso = new GestorReembolso();
     public boolean procesarCompra(Cliente cliente, Funcion funcion, ArrayList<Asiento> asientosSeleccionados, ArrayList<ProductoConfiteria> productos) {
 
         String idCompraStr = "CMP-" + contadorCompras;
@@ -34,10 +34,13 @@ public class FachadaCompra {
             }
         }
 
-        Compra compra = compraBuilder.build();
+        TarjetaVirtual tarjeta = cliente.getTarjetaVirtual();
+        Compra compra = compraBuilder
+                .tarjetaVirtual(tarjeta)
+                .funcion(funcion)
+                .build();
         double totalCompra = compra.getTotal();
 
-        TarjetaVirtual tarjeta = cliente.getTarjetaVirtual();
         if (!validarYDescontarSaldo(tarjeta, totalCompra)) {
             for (Asiento asiento : asientosSeleccionados) {
                 asiento.liberar();
@@ -46,7 +49,7 @@ public class FachadaCompra {
             return false;
         }
 
-        compra.setEstadoCompra("COMPLETADA");
+        compra.setEstadoCompra(EstadoCompra.PAGADA);
         cliente.getHistorialCompras().add(compra);
 
         double puntosGanados = totalCompra * 0.1;
@@ -66,8 +69,7 @@ public class FachadaCompra {
         tarjeta.descontarSaldo(total);
         return true;
     }
-    public boolean cancelarCompra(String idCompra) {
-        System.out.println("Gestionando cancelación para la compra: " + idCompra);
-        return true;
+    public Reembolso cancelarCompra(Compra compra) throws CancelacionNoPermitidaException {
+        return gestorReembolso.procesarReembolso(compra);
     }
 }
