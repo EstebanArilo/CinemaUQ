@@ -34,16 +34,6 @@ public class TarjetaVirtual {
         this.listMovimientos.add(movimiento);
         return true;
     }
-    public void recargar(double monto) {
-        this.saldo += monto;
-        Movimiento movimiento = new Movimiento(
-                "MOV-" + System.currentTimeMillis(),
-                TipoMovimiento.RECARGA,
-                monto,
-                LocalDate.now()
-        );
-        this.listMovimientos.add(movimiento);
-    }
 
     public TarjetaVirtual(String numero, double saldo, boolean activa) {
         this.numero = numero;
@@ -83,16 +73,6 @@ public class TarjetaVirtual {
     public void setListMovimientos(ArrayList<Movimiento> listMovimientos) {
         this.listMovimientos = listMovimientos;
     }
-    public void descontarSaldo(double monto) {
-        this.saldo -= monto;
-        String idMov = "MOV-" + (this.listMovimientos.size() + 1);
-        this.listMovimientos.add(new Movimiento(
-                idMov,
-                TipoMovimiento.PAGO,
-                monto,
-                java.time.LocalDate.now()
-        ));
-    }
 
     public void devolverSaldo(double monto) {
         this.saldo += monto;
@@ -100,6 +80,18 @@ public class TarjetaVirtual {
         this.listMovimientos.add(new Movimiento(
                 idMov,
                 TipoMovimiento.REEMBOLSO,
+                monto,
+                java.time.LocalDate.now()
+        ));
+    }
+    public void recargar(double monto) {
+        this.saldo += monto;
+        String idMov = "MOV-" + contadorMovimientos;
+        contadorMovimientos++;
+
+        this.listMovimientos.add(new Movimiento(
+                idMov,
+                TipoMovimiento.RECARGA,
                 monto,
                 java.time.LocalDate.now()
         ));

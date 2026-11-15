@@ -18,7 +18,7 @@ public class ReporteCancelacion extends Reporte{
         if (repoCompra != null && !repoCompra.isEmpty()) {
             for (int i = 0; i < repoCompra.size(); i++) {
                 Compra compra = repoCompra.get(i);
-                if ("CANCELADA".equalsIgnoreCase(compra.getEstadoCompra())) {
+                if (compra.getEstadoCompra() == EstadoCompra.CANCELADA) {
                     contenido = contenido + "- Compra ID: " + compra.getIdCompra()
                             .concat(" | Total: $").concat(String.valueOf(compra.getTotal())) + "\n";
                 }
