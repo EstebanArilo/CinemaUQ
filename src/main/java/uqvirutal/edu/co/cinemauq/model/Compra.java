@@ -87,6 +87,15 @@ public class Compra {
             return new Compra(this);
         }
     }
+
+    @Override
+    public String toString() {
+        String tituloPeli = (funcion != null && funcion.getPelicula() != null)
+                ? funcion.getPelicula().getTitulo()
+                : "Compra";
+        return idCompra + " - " + tituloPeli + " ($" + total + ")";
+    }
+
     public Reembolso getReembolso() {
         return reembolso;
     }

@@ -21,6 +21,11 @@ public class Asiento {
         estado.liberar(this);
     }
 
+    @Override
+    public String toString() {
+        return "Asiento " + numero + " (" + tipoAsiento + ")";
+    }
+
     public boolean isDisponible() {
         return this.estado instanceof AsientoDisponible;
     }

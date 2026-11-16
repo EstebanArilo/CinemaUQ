@@ -14,7 +14,6 @@ public class Cliente extends Usuario implements IObservador{
         super(id, nombre, correo, contraseña);
         this.listPuntos = new ArrayList<>();
         this.listCompras = new ArrayList<>();
-        this.tarjetaVirtual = new TarjetaVirtual(numero, 0.0, true, new ArrayList<>());
         this.tarjetaVirtual = new TarjetaVirtual(numero, 0.0, true, new ArrayList<>() );
         this.notificaciones = new ArrayList<>();
 

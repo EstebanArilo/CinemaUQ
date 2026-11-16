@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.ResenaViewController">
+    <children>
+        <VBox prefHeight="500.0" prefWidth="750.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+
+                <!-- Barra Superior: Botón de Volver y Título -->
+                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="710.0" spacing="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#onVolver" text="&lt; Volver" />
+                        <Label text="Gestión de Reseñas Generales - CinemaUQ">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Contenido Principal dividido en dos columnas -->
+                <HBox prefHeight="390.0" prefWidth="710.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+
+                        <!-- Columna Izquierda: Formulario para registrar reseña -->
+                        <VBox prefHeight="390.0" prefWidth="300.0" spacing="10.0">
+                            <children>
+                                <Label text="Registrar Nueva Reseña">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+
+                                <Label text="ID de Reseña:" />
+                                <TextField fx:id="txtIdResena" promptText="Ej. RES-001" />
+
+                                <Label text="Calificación (1 a 5 Estrellas):" />
+                                <TextField fx:id="txtCalificacion" promptText="Ej. 5" />
+
+                                <Label text="Comentario:" />
+                                <TextArea fx:id="txtComentario" prefHeight="110.0" prefWidth="280.0" promptText="Escribe tu opinión sobre el cine..." wrapText="true" />
+
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRegistrarResena" style="-fx-background-color: #1976D2; -fx-text-fill: white;" text="Guardar Reseña">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
+
+                        <!-- Columna Derecha: Promedio y Lista de Reseñas -->
+                        <VBox prefHeight="390.0" prefWidth="390.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="lblPromedioCalificacion" text="Calificación Promedio del Cine: 0.0 ⭐">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+
+                                <Label text="Historial de Reseñas Generales:" />
+                                <ListView fx:id="listViewResenas" prefHeight="330.0" prefWidth="390.0" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

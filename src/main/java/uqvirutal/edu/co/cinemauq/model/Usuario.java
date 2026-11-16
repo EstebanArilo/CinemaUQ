@@ -14,6 +14,11 @@ public abstract class Usuario {
         this.contraseña = contraseña;
     }
 
+    @Override
+    public String toString() {
+        return nombre + " (" + id + ")";
+    }
+
     public String getId() {
         return id;
     }

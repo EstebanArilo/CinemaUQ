@@ -21,6 +21,11 @@ public class Pelicula {
         return "Título: " + titulo + " | Género: " + genero + " | Duración: " + duracion + " min | Clasificación: +" + clasificacion;
     }
 
+    @Override
+    public String toString() {
+        return titulo + " (" + genero + " - " + duracion + " min)";
+    }
+
     public String getId() {
         return id;
     }

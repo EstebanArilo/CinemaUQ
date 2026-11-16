@@ -33,6 +33,13 @@ public class Funcion {
         System.out.println("La función " + idFuncion + " de la película " + pelicula.getTitulo() + " ha sido cancelada.");
     }
 
+    @Override
+    public String toString() {
+        String tituloPeli = (pelicula != null) ? pelicula.getTitulo() : "Sin película";
+        String nomSala = (sala != null) ? sala.getNombre() : "Sin sala";
+        return idFuncion + " - " + tituloPeli + " | " + nomSala + " | " + fechaHora;
+    }
+
     public String getIdFuncion() { return idFuncion; }
     public void setIdFuncion(String idFuncion) { this.idFuncion = idFuncion; }
 

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="620.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.FuncionViewController">
+    <children>
+        <VBox prefHeight="620.0" prefWidth="950.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+
+                <!-- Barra Superior -->
+                <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#onVolver" text="&lt; Volver" />
+                        <Label text="Gestión de Películas y Funciones - CinemaUQ">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Contenido Principal en 3 Columnas -->
+                <HBox prefHeight="520.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+
+                        <!-- Columna 1: Registrar Película -->
+                        <VBox prefWidth="280.0" spacing="8.0">
+                            <children>
+                                <Label text="1. Registrar Película">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+
+                                <Label text="ID Película:" />
+                                <TextField fx:id="txtIdPelicula" promptText="Ej. PEL-01" />
+
+                                <Label text="Título:" />
+                                <TextField fx:id="txtTituloPelicula" promptText="Ej. Interstellar" />
+
+                                <Label text="Género:" />
+                                <TextField fx:id="txtGeneroPelicula" promptText="Ej. Ciencia Ficción" />
+
+                                <Label text="Duración (minutos):" />
+                                <TextField fx:id="txtDuracionPelicula" promptText="Ej. 169" />
+
+                                <Label text="Clasificación (Edad mínima):" />
+                                <TextField fx:id="txtClasificacionPelicula" promptText="Ej. 12" />
+
+                                <Label text="Sinopsis:" />
+                                <TextArea fx:id="txtSinopsisPelicula" prefHeight="70.0" promptText="Breve resumen..." wrapText="true" />
+
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRegistrarPelicula" style="-fx-background-color: #2E7D32; -fx-text-fill: white;" text="Guardar Película">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
+
+                        <!-- Columna 2: Programar Función -->
+                        <VBox prefWidth="280.0" spacing="8.0">
+                            <children>
+                                <Label text="2. Programar Función">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+
+                                <Label text="ID Función:" />
+                                <TextField fx:id="txtIdFuncion" promptText="Ej. FUN-01" />
+
+                                <Label text="Seleccionar Película:" />
+                                <ComboBox fx:id="cmbPeliculas" maxWidth="1.7976931348623157E308" promptText="Seleccione película" />
+
+                                <Label text="Seleccionar Sala:" />
+                                <ComboBox fx:id="cmbSalas" maxWidth="1.7976931348623157E308" promptText="Seleccione sala" />
+
+                                <Label text="Fecha de Función:" />
+                                <DatePicker fx:id="dpFechaFuncion" maxWidth="1.7976931348623157E308" promptText="Seleccione fecha" />
+
+                                <Label text="Hora (HH:mm):" />
+                                <TextField fx:id="txtHoraFuncion" promptText="Ej. 19:30" />
+
+                                <Label text="Precio Entrada ($):" />
+                                <TextField fx:id="txtPrecioBase" promptText="Ej. 15000" />
+
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onProgramarFuncion" style="-fx-background-color: #1976D2; -fx-text-fill: white;" text="Programar Función">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
+
+                        <!-- Columna 3: Cartelera / Funciones Programadas -->
+                        <VBox prefWidth="330.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Funciones Programadas">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+
+                                <ListView fx:id="listViewFunciones" prefHeight="470.0" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

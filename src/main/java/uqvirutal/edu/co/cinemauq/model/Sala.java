@@ -47,6 +47,11 @@ public class Sala {
         return disponibles;
     }
 
+    @Override
+    public String toString() {
+        return nombre + " (Capacidad: " + capacidad + ")";
+    }
+
     public void agregarAsiento(Asiento asiento) {
         this.listaAsientos.add(asiento);
     }
