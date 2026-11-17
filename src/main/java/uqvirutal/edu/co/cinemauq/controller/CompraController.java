@@ -15,7 +15,15 @@ public class CompraController {
     }
 
     public List<Funcion> obtenerFuncionesDisponibles() {
-        return cine.getListaFunciones();
+        List<Funcion> activas = new ArrayList<>();
+        if (cine.getListaFunciones() != null) {
+            for (Funcion f : cine.getListaFunciones()) {
+                if (!ReembolsoController.estaCancelada(f)) {
+                    activas.add(f);
+                }
+            }
+        }
+        return activas;
     }
 
     public List<Asiento> obtenerAsientosFuncion(Funcion funcion) {
@@ -29,9 +37,7 @@ public class CompraController {
         return cine.getListaUsuarios();
     }
 
-    /**
-     * Crea una entrada aplicando el patrón Decorator según el tipo seleccionado.
-     */
+
     public Entrada crearEntradaDecorada(String idEntrada, Funcion funcion, Asiento asiento, String tipoEntrada, boolean incluirGafas3D) {
         Entrada entradaBase;
 
@@ -50,16 +56,12 @@ public class CompraController {
         return entradaBase;
     }
 
-    /**
-     * Procesa la compra completa a través de la FachadaCompra.
-     */
+
     public boolean realizarCompra(Cliente cliente, Funcion funcion, ArrayList<Asiento> asientosSeleccionados, ArrayList<ProductoConfiteria> productos) {
         return fachadaCompra.procesarCompra(cliente, funcion, asientosSeleccionados, productos);
     }
 
-    /**
-     * Permite cancelar una compra existente delegando al GestorReembolso mediante la fachada.
-     */
+
     public Reembolso cancelarCompra(Compra compra) throws CancelacionNoPermitidaException {
         return fachadaCompra.cancelarCompra(compra);
     }

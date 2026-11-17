@@ -5,19 +5,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="520.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.MenuPrincipalViewController">
+<AnchorPane prefHeight="540.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.MenuPrincipalViewController">
     <children>
-        <VBox alignment="CENTER" prefHeight="520.0" prefWidth="760.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER" prefHeight="540.0" prefWidth="760.0" spacing="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
-                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
             </padding>
             <children>
+
+                <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                    <children>
+                        <Label fx:id="lblUsuarioActivo" text="Sesión activa" textFill="#37474F">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="btnNotificaciones" mnemonicParsing="false" onAction="#onAbrirNotificaciones" style="-fx-background-color: #0277BD; -fx-text-fill: white;" text="Notificaciones" />
+                        <Button mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #B71C1C; -fx-text-fill: white;" text="Cerrar Sesión" />
+                    </children>
+                </HBox>
 
                 <Label text="CINEMA UQ">
                     <font>
@@ -33,56 +44,47 @@
 
                 <Separator prefWidth="500.0" />
 
-                <GridPane alignment="CENTER" hgap="20.0" vgap="20.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="240.0" prefWidth="280.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="240.0" prefWidth="280.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="65.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="65.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="65.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                <FlowPane alignment="CENTER" hgap="20.0" prefWrapLength="640.0" vgap="20.0">
                     <children>
 
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAbrirFunciones" style="-fx-background-color: #1565C0; -fx-text-fill: white;" text="1. Cartelera y Funciones">
+                        <Button fx:id="btnFunciones" mnemonicParsing="false" onAction="#onAbrirFunciones" prefHeight="75.0" prefWidth="290.0" style="-fx-background-color: #1565C0; -fx-text-fill: white;" text="Cartelera y Funciones">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
 
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAbrirCompras" style="-fx-background-color: #2E7D32; -fx-text-fill: white;" text="2. Compra de Entradas y Confitería" GridPane.columnIndex="1">
+                        <Button fx:id="btnCompras" mnemonicParsing="false" onAction="#onAbrirCompras" prefHeight="75.0" prefWidth="290.0" style="-fx-background-color: #2E7D32; -fx-text-fill: white;" text="Compra de Entradas y Confitería">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
 
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAbrirTarjetaVirtual" style="-fx-background-color: #00838F; -fx-text-fill: white;" text="3. Tarjeta Virtual y Puntos" GridPane.rowIndex="1">
+                        <Button fx:id="btnTarjeta" mnemonicParsing="false" onAction="#onAbrirTarjetaVirtual" prefHeight="75.0" prefWidth="290.0" style="-fx-background-color: #00838F; -fx-text-fill: white;" text="Tarjeta Virtual y Puntos">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
 
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAbrirReembolsos" style="-fx-background-color: #C62828; -fx-text-fill: white;" text="4. Reembolsos y Cancelaciones" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="btnReembolsos" mnemonicParsing="false" onAction="#onAbrirReembolsos" prefHeight="75.0" prefWidth="290.0" style="-fx-background-color: #C62828; -fx-text-fill: white;" text="Reembolsos y Cancelaciones">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
 
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAbrirResenas" style="-fx-background-color: #EF6C00; -fx-text-fill: white;" text="5. Reseñas y Calificaciones" GridPane.rowIndex="2">
+                        <Button fx:id="btnResenas" mnemonicParsing="false" onAction="#onAbrirResenas" prefHeight="75.0" prefWidth="290.0" style="-fx-background-color: #EF6C00; -fx-text-fill: white;" text="Reseñas y Calificaciones">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
 
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAbrirReportes" style="-fx-background-color: #4527A0; -fx-text-fill: white;" text="6. Reportes Administrativos" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="btnReportes" mnemonicParsing="false" onAction="#onAbrirReportes" prefHeight="75.0" prefWidth="290.0" style="-fx-background-color: #4527A0; -fx-text-fill: white;" text="Reportes Administrativos">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
 
                     </children>
-                </GridPane>
+                </FlowPane>
 
             </children>
         </VBox>

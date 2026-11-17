@@ -21,7 +21,6 @@
             </padding>
             <children>
 
-                <!-- Barra Superior -->
                 <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="20.0">
                     <children>
                         <Button mnemonicParsing="false" onAction="#onVolver" text="&lt; Volver" />
@@ -33,11 +32,9 @@
                     </children>
                 </HBox>
 
-                <!-- Contenido Principal en 3 Columnas -->
                 <HBox prefHeight="520.0" spacing="20.0" VBox.vgrow="ALWAYS">
                     <children>
 
-                        <!-- Columna 1: Registrar Película -->
                         <VBox prefWidth="280.0" spacing="8.0">
                             <children>
                                 <Label text="1. Registrar Película">
@@ -72,7 +69,6 @@
                             </children>
                         </VBox>
 
-                        <!-- Columna 2: Programar Función -->
                         <VBox prefWidth="280.0" spacing="8.0">
                             <children>
                                 <Label text="2. Programar Función">
@@ -107,7 +103,6 @@
                             </children>
                         </VBox>
 
-                        <!-- Columna 3: Cartelera / Funciones Programadas -->
                         <VBox prefWidth="330.0" spacing="8.0" HBox.hgrow="ALWAYS">
                             <children>
                                 <Label text="Funciones Programadas">

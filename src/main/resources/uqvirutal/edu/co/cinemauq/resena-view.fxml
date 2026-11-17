@@ -19,7 +19,6 @@
             </padding>
             <children>
 
-                <!-- Barra Superior: Botón de Volver y Título -->
                 <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="710.0" spacing="20.0">
                     <children>
                         <Button mnemonicParsing="false" onAction="#onVolver" text="&lt; Volver" />
@@ -31,11 +30,9 @@
                     </children>
                 </HBox>
 
-                <!-- Contenido Principal dividido en dos columnas -->
                 <HBox prefHeight="390.0" prefWidth="710.0" spacing="20.0" VBox.vgrow="ALWAYS">
                     <children>
 
-                        <!-- Columna Izquierda: Formulario para registrar reseña -->
                         <VBox prefHeight="390.0" prefWidth="300.0" spacing="10.0">
                             <children>
                                 <Label text="Registrar Nueva Reseña">
@@ -61,7 +58,6 @@
                             </children>
                         </VBox>
 
-                        <!-- Columna Derecha: Promedio y Lista de Reseñas -->
                         <VBox prefHeight="390.0" prefWidth="390.0" spacing="10.0" HBox.hgrow="ALWAYS">
                             <children>
                                 <Label fx:id="lblPromedioCalificacion" text="Calificación Promedio del Cine: 0.0 ⭐">
