@@ -136,4 +136,40 @@ public class Administrador extends Usuario {
     public boolean eliminarProducto(ProductoConfiteria producto) {
         return this.listProductos.remove(producto);
     }
+
+    public boolean crearCliente(Cliente cliente) {
+        if (cliente != null && buscarCliente(cliente.getId()) == null) {
+            Cine.getInstancia().getListaUsuarios().add(cliente);
+            return true;
+        }
+        return false;
+    }
+
+    public Cliente buscarCliente(String id) {
+        for (Usuario usuario : Cine.getInstancia().getListaUsuarios()) {
+            if (usuario instanceof Cliente && usuario.getId().equals(id)) {
+                return (Cliente) usuario;
+            }
+        }
+        return null;
+    }
+
+    public boolean eliminarCliente(String id) {
+        Cliente cliente = buscarCliente(id);
+        if (cliente != null) {
+            return Cine.getInstancia().getListaUsuarios().remove(cliente);
+        }
+        return false;
+    }
+
+    public boolean actualizarCliente(String id, String nuevoNombre, String nuevoCorreo, String nuevaContrasena) {
+        Cliente cliente = buscarCliente(id);
+        if (cliente != null) {
+            cliente.setNombre(nuevoNombre);
+            cliente.setCorreo(nuevoCorreo);
+            cliente.setContraseña(nuevaContrasena);
+            return true;
+        }
+        return false;
+    }
 }
