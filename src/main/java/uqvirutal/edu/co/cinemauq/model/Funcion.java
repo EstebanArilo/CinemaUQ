@@ -19,7 +19,9 @@ public class Funcion {
         this.precioEntrada = precioEntrada;
         this.asientosFuncion = asientosFuncion != null ? asientosFuncion : new ArrayList<>();
     }
-
+    /**
+     * Metodo para verificar la disponibilidad de los asientos
+     */
     public boolean disponibilidadAsiento(String numeroAsiento) {
         for (Asiento asiento : asientosFuncion) {
             if (asiento.getNumero().equalsIgnoreCase(numeroAsiento)) {
@@ -28,7 +30,9 @@ public class Funcion {
         }
         return false;
     }
-
+    /**
+     * Metodo para cancelar funciones
+     */
     public void cancelarFuncion() {
         System.out.println("La función " + idFuncion + " de la película " + pelicula.getTitulo() + " ha sido cancelada.");
     }

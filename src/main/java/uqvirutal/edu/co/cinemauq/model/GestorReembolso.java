@@ -14,6 +14,10 @@ public class GestorReembolso {
         this.contadorReembolsos = 1;
     }
 
+    /**
+     * Metodo para procesar el reembolso
+     */
+
     public Reembolso procesarReembolso(Compra compra) throws CancelacionNoPermitidaException {
         if (compra == null) {
             throw new CancelacionNoPermitidaException("La compra no existe.");
@@ -58,6 +62,9 @@ public class GestorReembolso {
 
         return nuevoReembolso;
     }
+    /**
+     * Metodo para procesar el reembolso por la cancelacion de funciones
+     */
 
     public List<Reembolso> procesarReembolsoPorFuncion(List<Compra> comprasFuncion) {
         List<Reembolso> reembolsosGenerados = new ArrayList<>();
@@ -91,7 +98,9 @@ public class GestorReembolso {
         }
         return reembolsosGenerados;
     }
-
+    /**
+     * Metodo para reembolsar segun la politica usada
+     */
     private PoliticaReembolso seleccionarPolitica(double horasRestantes, MotivoReembolso motivo) {
         if (motivo == MotivoReembolso.CANCELACION_FUNCION || horasRestantes > 24.0) {
             return new ReembolsoTotal();

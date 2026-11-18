@@ -39,6 +39,7 @@ public class Cliente extends Usuario implements IObservador{
      *Metodo para la acumulacion de puntos de lealtad.
      * @param cantidad
      */
+
     public void acumularPuntos(double cantidad) {
         LocalDate fechaObtencion = LocalDate.now();
         int anioVencimiento = fechaObtencion.getYear() + 1;
