@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,19 +19,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="620.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.ReporteViewController">
+<AnchorPane prefHeight="680.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.ReporteViewController">
     <children>
-        <VBox prefHeight="620.0" prefWidth="940.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="680.0" prefWidth="1020.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
             </padding>
             <children>
 
-                <!-- Barra Superior -->
-                <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="20.0">
+
+                <HBox alignment="CENTER_LEFT" prefHeight="38.0" spacing="20.0">
                     <children>
                         <Button mnemonicParsing="false" onAction="#onVolver" text="&lt; Volver" />
-                        <Label text="Módulo de Reportes Administrativos - CinemaUQ">
+                        <Label text="Reportes Administrativos y Estadísticas - CinemaUQ">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -32,57 +39,154 @@
                     </children>
                 </HBox>
 
-                <!-- Contenido Principal en 2 Columnas -->
-                <HBox prefHeight="520.0" spacing="25.0" VBox.vgrow="ALWAYS">
-                    <children>
+                <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
 
-                        <!-- Columna Izquierda: Configuración del Reporte -->
-                        <VBox prefWidth="330.0" spacing="12.0">
-                            <children>
-                                <Label text="Parámetros del Reporte">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
-                                </Label>
+                        <Tab text="Reportes Visuales y Estadísticas">
+                            <content>
+                                <VBox spacing="12.0">
+                                    <padding>
+                                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                                    </padding>
+                                    <children>
 
-                                <Label text="Tipo de Reporte (Factory Method):" />
-                                <ComboBox fx:id="cmbTipoReporte" maxWidth="1.7976931348623157E308" promptText="Seleccione reporte" />
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <children>
+                                                <VBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #E3F2FD; -fx-background-radius: 8; -fx-padding: 10;">
+                                                    <children>
+                                                        <Label text="Total Ventas Pagadas" textFill="#1565C0" />
+                                                        <Label fx:id="lblKpiVentas" text="\$0" textFill="#0D47A1">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
 
-                                <Label text="Formato de Exportación (Bridge / Adapter):" />
-                                <ComboBox fx:id="cmbFormato" maxWidth="1.7976931348623157E308" promptText="TXT / PDF" />
+                                                <VBox alignment="CENTER" prefWidth="180.0" style="-fx-background-color: #E8F5E9; -fx-background-radius: 8; -fx-padding: 10;">
+                                                    <children>
+                                                        <Label text="Entradas Vendidas" textFill="#2E7D32" />
+                                                        <Label fx:id="lblKpiEntradas" text="0" textFill="#1B5E20">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
 
-                                <Label text="Fecha de Inicio:" />
-                                <DatePicker fx:id="dpFechaInicio" maxWidth="1.7976931348623157E308" />
+                                                <VBox alignment="CENTER" prefWidth="180.0" style="-fx-background-color: #FFF3E0; -fx-background-radius: 8; -fx-padding: 10;">
+                                                    <children>
+                                                        <Label text="Ocupación de Salas" textFill="#EF6C00" />
+                                                        <Label fx:id="lblKpiOcupacion" text="0.0%" textFill="#E65100">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
 
-                                <Label text="Fecha de Fin:" />
-                                <DatePicker fx:id="dpFechaFin" maxWidth="1.7976931348623157E308" />
+                                                <VBox alignment="CENTER" prefWidth="180.0" style="-fx-background-color: #FFEBEE; -fx-background-radius: 8; -fx-padding: 10;">
+                                                    <children>
+                                                        <Label text="Reembolsos Realizados" textFill="#C62828" />
+                                                        <Label fx:id="lblKpiReembolsos" text="0" textFill="#B71C1C">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
 
-                                <Label text="Ruta / Nombre del Archivo:" />
-                                <TextField fx:id="txtRutaArchivo" promptText="Ej. reportes/ventas_mes" />
+                                                <Button mnemonicParsing="false" onAction="#onActualizarGraficos" style="-fx-background-color: #37474F; -fx-text-fill: white;" text="Actualizar Gráficos" />
+                                            </children>
+                                        </HBox>
 
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGenerarReporte" style="-fx-background-color: #1565C0; -fx-text-fill: white;" text="Generar y Exportar Reporte">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                        </VBox>
+                                        <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <BarChart fx:id="barChartVentas" animated="false" title="Ingresos por Película ($)" HBox.hgrow="ALWAYS">
+                                                    <xAxis>
+                                                        <CategoryAxis label="Película" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis label="Ingresos ($)" />
+                                                    </yAxis>
+                                                </BarChart>
 
-                        <!-- Columna Derecha: Vista Previa del Reporte -->
-                        <VBox prefWidth="540.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Label text="Vista Previa del Contenido Exportado">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
-                                </Label>
+                                                <PieChart fx:id="pieChartOcupacion" animated="false" prefWidth="380.0" title="Ocupación General de Salas" />
+                                            </children>
+                                        </HBox>
 
-                                <TextArea fx:id="txtAreaVistaPrevia" editable="false" prefHeight="470.0" style="-fx-font-family: 'Consolas', 'Monospaced'; -fx-font-size: 12;" wrapText="true" VBox.vgrow="ALWAYS" />
-                            </children>
-                        </VBox>
+                                        <!-- Fila Inferior: Gráfico de Líneas -->
+                                        <LineChart fx:id="lineChartTendencia" animated="false" prefHeight="210.0" title="Comportamiento de Ventas y Recargas en el Tiempo">
+                                            <xAxis>
+                                                <CategoryAxis label="Fecha" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis label="Monto ($)" />
+                                            </yAxis>
+                                        </LineChart>
 
-                    </children>
-                </HBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <Tab text="Reportes Exportables (TXT / PDF)">
+                            <content>
+                                <HBox spacing="25.0">
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                    <children>
+
+                                        <VBox prefWidth="320.0" spacing="12.0">
+                                            <children>
+                                                <Label text="Parámetros del Reporte">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+
+                                                <Label text="Tipo de Reporte (Factory Method):" />
+                                                <ComboBox fx:id="cmbTipoReporte" maxWidth="1.7976931348623157E308" promptText="Seleccione reporte" />
+
+                                                <Label text="Formato de Exportación (Bridge / Adapter):" />
+                                                <ComboBox fx:id="cmbFormato" maxWidth="1.7976931348623157E308" promptText="TXT / PDF" />
+
+                                                <Label text="Fecha de Inicio:" />
+                                                <DatePicker fx:id="dpFechaInicio" maxWidth="1.7976931348623157E308" />
+
+                                                <Label text="Fecha de Fin:" />
+                                                <DatePicker fx:id="dpFechaFin" maxWidth="1.7976931348623157E308" />
+
+                                                <Label text="Ruta / Nombre del Archivo:" />
+                                                <TextField fx:id="txtRutaArchivo" promptText="Ej. reportes/ventas_mes" />
+
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGenerarReporte" style="-fx-background-color: #1565C0; -fx-text-fill: white;" text="Generar y Exportar Reporte">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Label text="Vista Previa del Contenido Exportado">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextArea fx:id="txtAreaVistaPrevia" editable="false" style="-fx-font-family: 'Consolas', 'Monospaced'; -fx-font-size: 12;" wrapText="true" VBox.vgrow="ALWAYS" />
+                                            </children>
+                                        </VBox>
+
+                                    </children>
+                                </HBox>
+                            </content>
+                        </Tab>
+
+                    </tabs>
+                </TabPane>
 
             </children>
         </VBox>

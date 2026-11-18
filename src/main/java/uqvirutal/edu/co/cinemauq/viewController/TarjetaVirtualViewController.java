@@ -92,6 +92,10 @@ public class TarjetaVirtualViewController {
 
     @FXML
     void onRecargarSaldo() {
+        if (app != null && !(app.getUsuarioLogueado() instanceof uqvirutal.edu.co.cinemauq.model.Administrador)) {
+            mostrarAlerta("Acceso Restringido", "Únicamente el administrador puede realizar recargas a la tarjeta virtual.");
+            return;
+        }
         Cliente cliente = cmbClientes.getSelectionModel().getSelectedItem();
         if (cliente == null) {
             mostrarAlerta("Advertencia", "Seleccione un cliente.");
@@ -162,6 +166,17 @@ public class TarjetaVirtualViewController {
 
     public void setApp(App app) {
         this.app = app;
+        if (app != null && app.getUsuarioLogueado() instanceof uqvirutal.edu.co.cinemauq.model.Cliente) {
+            Cliente clienteLogueado = (Cliente) app.getUsuarioLogueado();
+            if (cmbClientes != null) {
+                cmbClientes.getSelectionModel().select(clienteLogueado);
+                cmbClientes.setDisable(true);
+            }
+            if (txtMontoRecarga != null) {
+                txtMontoRecarga.setDisable(true);
+                txtMontoRecarga.setPromptText("Solo el administrador puede recargar");
+            }
+        }
     }
 
     @FXML

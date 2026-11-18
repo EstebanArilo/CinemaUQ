@@ -17,7 +17,9 @@ public abstract class Reporte {
         this.fechaFin = fechaFin;
         this.exportador = exportador;
     }
-
+    /**
+     * Metodo para crear el encabezado a sus clases hijas (Template Method)
+     */
     public String generarEncabezado() {
         String inicioStr = (fechaInicio != null) ? fechaInicio.toString() : "N/A";
         String finStr = (fechaFin != null) ? fechaFin.toString() : "N/A";
@@ -31,7 +33,9 @@ public abstract class Reporte {
     }
 
     public abstract String generarContenido();
-
+    /**
+     * Metodo para exportar el reporte
+     */
     public void exportar(String rutaArchivo) {
         String contenidoCompleto = generarEncabezado() + "\n" + generarContenido();
         if (exportador != null) {

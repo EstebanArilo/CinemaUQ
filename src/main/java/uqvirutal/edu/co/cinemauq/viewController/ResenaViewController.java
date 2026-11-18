@@ -78,7 +78,6 @@ public class ResenaViewController {
                 return;
             }
 
-            // Cliente simulado o el que tenga la sesión activa
             Cliente clienteMock = new Cliente("C-001", "Cliente Frecuente", null, null, null);
 
             resenaController.registrarResena(id, calificacion, comentario, LocalDate.now(), clienteMock);

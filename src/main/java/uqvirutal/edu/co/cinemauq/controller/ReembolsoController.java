@@ -8,6 +8,7 @@ public class ReembolsoController {
 
     private final Cine cine;
     private final GestorReembolso gestorReembolso;
+    private static final java.util.Set<String> funcionesCanceladasIds = new java.util.HashSet<>();
 
     public ReembolsoController() {
         this.cine = Cine.getInstancia();
@@ -39,36 +40,34 @@ public class ReembolsoController {
     }
 
     public List<Funcion> obtenerFunciones() {
+        List<Funcion> activas = new ArrayList<>();
         if (cine.getListaFunciones() != null) {
-            return cine.getListaFunciones();
+            for (Funcion f : cine.getListaFunciones()) {
+                if (!estaCancelada(f)) {
+                    activas.add(f);
+                }
+            }
         }
-        return new ArrayList<>();
+        return activas;
     }
 
-    /**
-     * Procesa el reembolso individual de una compra de cliente y libera sus asientos.
-     */
     public Reembolso solicitarReembolsoCliente(Compra compra) throws CancelacionNoPermitidaException {
         Reembolso reembolso = gestorReembolso.procesarReembolso(compra);
         liberarAsientosDeCompra(compra);
         return reembolso;
     }
 
-    /**
-     * Cancela una función (notificando via Administrador si existe) y reembolsa al 100%
-     * todas las compras pagadas asociadas a dicha función.
-     */
     public List<Reembolso> cancelarFuncionYReembolsar(Funcion funcion) {
         if (funcion == null) {
             return new ArrayList<>();
         }
-
         Administrador admin = obtenerAdministrador();
         if (admin != null) {
             admin.cancelarFuncion(funcion);
         } else {
             funcion.cancelarFuncion();
         }
+        funcionesCanceladasIds.add(funcion.getIdFuncion());
 
         List<Compra> comprasAfectadas = new ArrayList<>();
         for (Cliente cliente : obtenerClientes()) {
@@ -87,6 +86,10 @@ public class ReembolsoController {
         }
 
         return generados;
+    }
+
+    public static boolean estaCancelada(Funcion funcion) {
+        return funcion != null && funcionesCanceladasIds.contains(funcion.getIdFuncion());
     }
 
     public List<Reembolso> obtenerHistorialReembolsos() {

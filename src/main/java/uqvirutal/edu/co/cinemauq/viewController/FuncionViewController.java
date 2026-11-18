@@ -143,7 +143,11 @@ public class FuncionViewController {
 
         if (funciones != null) {
             for (Funcion f : funciones) {
-                String info = f.getIdFuncion() + " | " + f.getPelicula().getTitulo()
+                String estado = uqvirutal.edu.co.cinemauq.controller.ReembolsoController.estaCancelada(f)
+                        ? " [CANCELADA]"
+                        : " [ACTIVA]";
+                String info = f.getIdFuncion() + estado
+                        + " | " + f.getPelicula().getTitulo()
                         + " | Sala: " + f.getSala().getNumeroSala()
                         + " | Fecha: " + f.getFechaHora()
                         + " | $" + f.getPrecioEntrada();

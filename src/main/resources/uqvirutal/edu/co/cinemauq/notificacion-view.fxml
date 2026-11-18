@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="580.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.NotificacionViewController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+            </padding>
+            <children>
+
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#onVolver" text="&lt; Volver" />
+                        <VBox>
+                            <children>
+                                <Label text="Centro de Notificaciones e Intereses - CinemaUQ">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="lblSubtituloUsuario" text="Bandeja de mensajes" textFill="#546E7A" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+
+                        <VBox prefWidth="270.0" spacing="12.0" style="-fx-background-color: #F5F7FA; -fx-padding: 15; -fx-background-radius: 8; -fx-border-color: #CFD8DC; -fx-border-radius: 8;">
+                            <children>
+                                <Label text="Filtrar Bandeja">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+
+                                <ComboBox fx:id="cmbFiltroTipo" maxWidth="1.7976931348623157E308" />
+
+                                <Separator />
+
+                                <VBox fx:id="boxPreferenciasCliente" spacing="8.0">
+                                    <children>
+                                        <Label text="Mis Temas de Interés:">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <CheckBox fx:id="chkInteresEstrenos" selected="true" text="Estrenos y Nuevas Funciones" />
+                                        <CheckBox fx:id="chkInteresRecargas" selected="true" text="Recargas y Movimientos" />
+                                        <CheckBox fx:id="chkInteresCancelaciones" selected="true" text="Cancelaciones y Reembolsos" />
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGuardarPreferencias" style="-fx-background-color: #1565C0; -fx-text-fill: white;" text="Guardar Preferencias">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </VBox>
+
+                                <VBox fx:id="boxEnvioAdmin" spacing="8.0">
+                                    <children>
+                                        <Label text="Difundir Aviso a Clientes:">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="txtMensajeMasivo" promptText="Ej. 2x1 en combo crispetas hoy" />
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onEnviarAvisoMasivo" style="-fx-background-color: #2E7D32; -fx-text-fill: white;" text="Notificar a Todos">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <ListView fx:id="listViewNotificaciones" VBox.vgrow="ALWAYS" />
+
+                                <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#onMarcarLeida" style="-fx-background-color: #00838F; -fx-text-fill: white;" text="Marcar Seleccionada como Leída">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#onMarcarTodasLeidas" text="Marcar Todas como Leídas" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -132,6 +132,10 @@ public class ReembolsoViewController {
 
     @FXML
     void onCancelarFuncionMasivo() {
+        if (app != null && !(app.getUsuarioLogueado() instanceof Administrador)) {
+            mostrarAlerta("Acceso Restringido", "Únicamente el administrador puede cancelar una función completa.");
+            return;
+        }
         Funcion funcion = cmbFuncionesCancelar.getSelectionModel().getSelectedItem();
         if (funcion == null) {
             mostrarAlerta("Advertencia", "Seleccione la función que desea cancelar.");
@@ -147,12 +151,26 @@ public class ReembolsoViewController {
         mostrarAlerta("Función Cancelada",
                 "La función fue cancelada y se notificó a los clientes.\nTotal de compras reembolsadas al 100%: " + cantidad);
 
+        listaFuncionesObs.setAll(reembolsoController.obtenerFunciones());
+        if (cmbFuncionesCancelar != null) {
+            cmbFuncionesCancelar.getSelectionModel().clearSelection();
+        }
         actualizarComprasCliente(cmbClientes.getSelectionModel().getSelectedItem());
         actualizarHistorial();
     }
 
     public void setApp(App app) {
         this.app = app;
+        if (app != null && app.getUsuarioLogueado() instanceof Cliente) {
+            Cliente clienteLogueado = (Cliente) app.getUsuarioLogueado();
+            if (cmbClientes != null) {
+                cmbClientes.getSelectionModel().select(clienteLogueado);
+                cmbClientes.setDisable(true);
+            }
+            if (cmbFuncionesCancelar != null) {
+                cmbFuncionesCancelar.setDisable(true);
+            }
+        }
     }
 
     @FXML

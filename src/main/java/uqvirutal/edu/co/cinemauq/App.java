@@ -14,13 +14,22 @@ import java.util.ArrayList;
 public class App extends Application {
 
     private Stage primaryStage;
+    private Usuario usuarioLogueado;
 
     @Override
     public void start(Stage stage) {
         cargarDatosIniciales();
         this.primaryStage = stage;
         this.primaryStage.setTitle("CinemaUQ - Sistema de Gestión");
-        openPrimary();
+        openLogin();
+    }
+
+    public Usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
+
+    public void setUsuarioLogueado(Usuario usuarioLogueado) {
+        this.usuarioLogueado = usuarioLogueado;
     }
 
     private void cargarDatosIniciales() {
@@ -41,20 +50,68 @@ public class App extends Application {
             admin.getServicioNotificaciones().agregarObservador(cliente);
         }
 
-        Sala sala1 = new Sala(1, "Sala 1 - IMAX", 3, 4);
+        admin.crearProducto("PROD-01", "Crispetas Medianas", 12000.0, CategoriaProducto.SNACK);
+        admin.crearProducto("PROD-02", "Gaseosa 400ml", 6000.0, CategoriaProducto.BEBIDA);
+        admin.crearProducto("PROD-03", "Perro Caliente", 10000.0, CategoriaProducto.SNACK);
+
+        Sala sala1 = new Sala(1, "Sala 1 - IMAX", 4, 5);
+        Sala sala2 = new Sala(2, "Sala 2 - 3D", 5, 5);
+        Sala sala3 = new Sala(3, "Sala 3 - Estándar", 5, 5);
+
+        poblarAsientosSala(sala1, 4, 5);
+        poblarAsientosSala(sala2, 5, 5);
+        poblarAsientosSala(sala3, 5, 5);
+
         cine.agregarSala(sala1);
+        cine.agregarSala(sala2);
+        cine.agregarSala(sala3);
 
         Pelicula pelicula1 = new Pelicula("PEL-01", "Interestelar", "Ciencia Ficción", 169, "Exploración espacial más allá de nuestra galaxia.", 12);
         cine.agregarPelicula(pelicula1);
 
-        ArrayList<Asiento> asientosFuncion = new ArrayList<>();
-        asientosFuncion.add(new Asiento("A", "A1", TipoAsiento.GENERAL, new AsientoDisponible()));
-        asientosFuncion.add(new Asiento("A", "A2", TipoAsiento.GENERAL, new AsientoDisponible()));
-        asientosFuncion.add(new Asiento("B", "B1", TipoAsiento.VIP, new AsientoDisponible()));
-        asientosFuncion.add(new Asiento("B", "B2", TipoAsiento.VIP, new AsientoDisponible()));
-
-        Funcion funcion1 = new Funcion("FUNC-01", pelicula1, sala1, LocalDateTime.now().plusDays(2), 15000.0, asientosFuncion);
+        Funcion funcion1 = new Funcion("FUNC-01", pelicula1, sala1, LocalDateTime.now().plusDays(2), 15000.0, clonarAsientosSala(sala1));
         cine.agregarFuncion(funcion1);
+    }
+
+
+    private void poblarAsientosSala(Sala sala, int numFilas, int numColumnas) {
+        if (sala.getListaAsientos() == null) {
+            return;
+        }
+        sala.getListaAsientos().clear();
+        for (int f = 0; f < numFilas; f++) {
+            String letraFila = String.valueOf((char) ('A' + f));
+            TipoAsiento tipo = (f == numFilas - 1) ? TipoAsiento.VIP : TipoAsiento.GENERAL;
+            for (int c = 1; c <= numColumnas; c++) {
+                String codigoAsiento = letraFila + c;
+                sala.getListaAsientos().add(new Asiento(letraFila, codigoAsiento, tipo, new AsientoDisponible()));
+            }
+        }
+    }
+
+    private ArrayList<Asiento> clonarAsientosSala(Sala sala) {
+        ArrayList<Asiento> copia = new ArrayList<>();
+        if (sala != null && sala.getListaAsientos() != null) {
+            for (Asiento a : sala.getListaAsientos()) {
+                copia.add(new Asiento(a.getFila(), a.getNumero(), a.getTipoAsiento(), new AsientoDisponible()));
+            }
+        }
+        return copia;
+    }
+
+    public void openLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("login-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            LoginViewController controller = loader.getController();
+            controller.setApp(this);
+
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void openPrimary() {
@@ -153,6 +210,20 @@ public class App extends Application {
             Scene scene = new Scene(loader.load());
 
             ReporteViewController controller = loader.getController();
+            controller.setApp(this);
+
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void openNotificaciones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("notificacion-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            NotificacionViewController controller = loader.getController();
             controller.setApp(this);
 
             primaryStage.setScene(scene);

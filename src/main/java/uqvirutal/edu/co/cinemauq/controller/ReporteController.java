@@ -3,6 +3,8 @@ package uqvirutal.edu.co.cinemauq.controller;
 import uqvirutal.edu.co.cinemauq.model.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ReporteController {
 
@@ -12,10 +14,6 @@ public class ReporteController {
         this.cine = Cine.getInstancia();
     }
 
-    /**
-     * Genera y exporta el reporte usando Factory Method + Bridge + Adapter,
-     * y retorna el texto completo del reporte para previsualizarlo en la interfaz.
-     */
     public String generarYExportarReporte(String tipoReporte, String formatoExportacion,
                                           LocalDate fechaInicio, LocalDate fechaFin, String rutaDestino) {
         Exportador exportador = crearExportador(formatoExportacion);
@@ -37,6 +35,137 @@ public class ReporteController {
         return reporteVista.generarEncabezado() + "\n" + reporteVista.generarContenido();
     }
 
+
+    public double calcularTotalVentasPagadas() {
+        double total = 0.0;
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.PAGADA) {
+                total += c.getTotal();
+            }
+        }
+        return total;
+    }
+
+    public int contarTotalEntradasVendidas() {
+        int contador = 0;
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.PAGADA && c.getEntradas() != null) {
+                for (Entrada e : c.getEntradas()) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+
+    public int contarTotalReembolsos() {
+        int contador = 0;
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.REEMBOLSADA) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public int[] obtenerConteoAsientosOcupadosYDisponibles() {
+        int ocupados = 0;
+        int disponibles = 0;
+        for (Funcion f : obtenerFunciones()) {
+            if (f.getAsientosFuncion() != null) {
+                for (Asiento a : f.getAsientosFuncion()) {
+                    if (a.isDisponible()) {
+                        disponibles++;
+                    } else {
+                        ocupados++;
+                    }
+                }
+            }
+        }
+        return new int[]{ocupados, disponibles};
+    }
+
+    public Map<String, Double> obtenerVentasPorPelicula() {
+        Map<String, Double> mapa = new LinkedHashMap<>();
+        if (cine.getListaPeliculas() != null) {
+            for (Pelicula p : cine.getListaPeliculas()) {
+                mapa.put(p.getTitulo(), 0.0);
+            }
+        }
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.PAGADA && c.getFuncion() != null && c.getFuncion().getPelicula() != null) {
+                String titulo = c.getFuncion().getPelicula().getTitulo();
+                double actual = mapa.containsKey(titulo) ? mapa.get(titulo) : 0.0;
+                mapa.put(titulo, actual + c.getTotal());
+            }
+        }
+        return mapa;
+    }
+
+    public Map<String, Integer> obtenerProductosMasVendidos() {
+        Map<String, Integer> mapa = new LinkedHashMap<>();
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.PAGADA && c.getProductosConfiteria() != null) {
+                for (ProductoConfiteria p : c.getProductosConfiteria()) {
+                    String nombre = (p.getNombre() != null) ? p.getNombre() : "Producto";
+                    int actual = mapa.containsKey(nombre) ? mapa.get(nombre) : 0;
+                    mapa.put(nombre, actual + 1);
+                }
+            }
+        }
+        return mapa;
+    }
+
+    public Map<String, Double> obtenerDistribucionVentasPorCategoria() {
+        double totalEntradas = 0.0;
+        double totalConfiteria = 0.0;
+
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.PAGADA) {
+                if (c.getEntradas() != null) {
+                    for (Entrada e : c.getEntradas()) {
+                        totalEntradas += e.getCosto();
+                    }
+                }
+                if (c.getProductosConfiteria() != null) {
+                    for (ProductoConfiteria p : c.getProductosConfiteria()) {
+                        totalConfiteria += p.getPrecio();
+                    }
+                }
+            }
+        }
+
+        Map<String, Double> categorias = new LinkedHashMap<>();
+        categorias.put("Entradas", totalEntradas);
+        categorias.put("Confitería", totalConfiteria);
+        return categorias;
+    }
+
+    public Map<String, Double> obtenerEvolucionVentasPorFecha() {
+        Map<String, Double> serie = new LinkedHashMap<>();
+        for (Compra c : recopilarTodasLasCompras()) {
+            if (c.getEstadoCompra() == EstadoCompra.PAGADA && c.getFechaHora() != null) {
+                String fecha = c.getFechaHora().toLocalDate().toString();
+                double actual = serie.containsKey(fecha) ? serie.get(fecha) : 0.0;
+                serie.put(fecha, actual + c.getTotal());
+            }
+        }
+        return serie;
+    }
+
+    public Map<String, Double> obtenerEvolucionRecargasPorFecha() {
+        Map<String, Double> serie = new LinkedHashMap<>();
+        for (Movimiento m : recopilarTodosLosMovimientos()) {
+            if (m.getTipoMovimiento() == TipoMovimiento.RECARGA && m.getFecha() != null) {
+                String fecha = m.getFecha().toString();
+                double actual = serie.containsKey(fecha) ? serie.get(fecha) : 0.0;
+                serie.put(fecha, actual + m.getMonto());
+            }
+        }
+        return serie;
+    }
+
+
     private Exportador crearExportador(String formato) {
         if ("PDF".equalsIgnoreCase(formato)) {
             return new PdfAdapter();
@@ -48,7 +177,6 @@ public class ReporteController {
         if (tipoReporte == null) {
             return null;
         }
-
         switch (tipoReporte) {
             case "Ventas":
                 return new FactoryReporteVenta(recopilarTodasLasCompras());
@@ -130,17 +258,11 @@ public class ReporteController {
     }
 
     private ArrayList<Sala> obtenerSalas() {
-        if (cine.getListaSalas() != null) {
-            return cine.getListaSalas();
-        }
-        return new ArrayList<>();
+        return (cine.getListaSalas() != null) ? cine.getListaSalas() : new ArrayList<>();
     }
 
     private ArrayList<Funcion> obtenerFunciones() {
-        if (cine.getListaFunciones() != null) {
-            return cine.getListaFunciones();
-        }
-        return new ArrayList<>();
+        return (cine.getListaFunciones() != null) ? cine.getListaFunciones() : new ArrayList<>();
     }
 
     private Administrador obtenerAdministrador() {

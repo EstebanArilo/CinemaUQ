@@ -3,13 +3,17 @@ package uqvirutal.edu.co.cinemauq.viewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import uqvirutal.edu.co.cinemauq.App;
 import uqvirutal.edu.co.cinemauq.controller.CompraController;
 import uqvirutal.edu.co.cinemauq.model.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CompraViewController {
 
@@ -17,19 +21,18 @@ public class CompraViewController {
     private final CompraController compraController;
 
     private final ObservableList<Funcion> listaFuncionesObs = FXCollections.observableArrayList();
-    private final ObservableList<Asiento> listaAsientosObs = FXCollections.observableArrayList();
     private final ObservableList<String> carritoResumenObs = FXCollections.observableArrayList();
 
     private final List<Entrada> entradasSeleccionadas = new ArrayList<>();
     private final List<ProductoConfiteria> productosSeleccionados = new ArrayList<>();
     private final ArrayList<Asiento> asientosSeleccionados = new ArrayList<>();
     private int contadorEntradas = 1;
-    private int contadorCompras = 1;
 
     @FXML private ComboBox<Funcion> cmbFunciones;
-    @FXML private ComboBox<Asiento> cmbAsientos;
     @FXML private ComboBox<String> cmbTipoEntrada;
     @FXML private CheckBox chkGafas3D;
+    @FXML private Label lblAsientoActivo;
+    @FXML private GridPane gridAsientos;
 
     @FXML private CheckBox chkCrispetas;
     @FXML private CheckBox chkGaseosa;
@@ -55,6 +58,10 @@ public class CompraViewController {
             listaFuncionesObs.setAll(funciones);
             if (cmbFunciones != null) {
                 cmbFunciones.setItems(listaFuncionesObs);
+                if (!listaFuncionesObs.isEmpty()) {
+                    cmbFunciones.getSelectionModel().selectFirst();
+                    dibujarMapaAsientos(cmbFunciones.getSelectionModel().getSelectedItem());
+                }
             }
         }
 
@@ -71,44 +78,145 @@ public class CompraViewController {
     private void configurarListeners() {
         if (cmbFunciones != null) {
             cmbFunciones.getSelectionModel().selectedItemProperty().addListener((obs, vieja, funcionSeleccionada) -> {
-                if (funcionSeleccionada != null) {
-                    List<Asiento> asientos = compraController.obtenerAsientosFuncion(funcionSeleccionada);
-                    listaAsientosObs.clear();
-                    for (Asiento a : asientos) {
-                        if (a.isDisponible()) {
-                            listaAsientosObs.add(a);
-                        }
-                    }
-                    if (cmbAsientos != null) {
-                        cmbAsientos.setItems(listaAsientosObs);
-                    }
+                entradasSeleccionadas.clear();
+                asientosSeleccionados.clear();
+                if (lblAsientoActivo != null) {
+                    lblAsientoActivo.setText("Asientos seleccionados: Ninguno");
                 }
+                actualizarCarrito();
+                dibujarMapaAsientos(funcionSeleccionada);
             });
         }
     }
 
-    @FXML
-    void onAgregarEntrada() {
-        Funcion funcion = cmbFunciones.getSelectionModel().getSelectedItem();
-        Asiento asiento = cmbAsientos.getSelectionModel().getSelectedItem();
-        String tipo = cmbTipoEntrada.getSelectionModel().getSelectedItem();
-        boolean gafas = chkGafas3D != null && chkGafas3D.isSelected();
+    private void dibujarMapaAsientos(Funcion funcion) {
+        if (gridAsientos == null) {
+            return;
+        }
+        gridAsientos.getChildren().clear();
 
-        if (funcion == null || asiento == null) {
-            mostrarAlerta("Advertencia", "Seleccione una función y un asiento disponible.");
+        if (funcion == null) {
             return;
         }
 
-        String idEntrada = "ENT-" + contadorEntradas;
-        contadorEntradas++;
+        List<Asiento> asientos = compraController.obtenerAsientosFuncion(funcion);
+        if (asientos == null || asientos.isEmpty()) {
+            Label lblSinAsientos = new Label("Esta función no tiene asientos asignados.");
+            gridAsientos.add(lblSinAsientos, 0, 0);
+            return;
+        }
 
-        Entrada entrada = compraController.crearEntradaDecorada(idEntrada, funcion, asiento, tipo, gafas);
-        entradasSeleccionadas.add(entrada);
+        Map<String, List<Asiento>> asientosPorFila = new LinkedHashMap<>();
+        for (Asiento a : asientos) {
+            String fila = (a.getFila() != null && !a.getFila().isEmpty()) ? a.getFila() : "F";
+            if (!asientosPorFila.containsKey(fila)) {
+                asientosPorFila.put(fila, new ArrayList<>());
+            }
+            asientosPorFila.get(fila).add(a);
+        }
 
-        asientosSeleccionados.add(asiento);
-        listaAsientosObs.remove(asiento);
+        int rowIndex = 0;
+        for (Map.Entry<String, List<Asiento>> entry : asientosPorFila.entrySet()) {
+            String nombreFila = entry.getKey();
 
+            Label lblFila = new Label("Fila " + nombreFila);
+            lblFila.setStyle("-fx-font-weight: bold; -fx-text-fill: #37474F;");
+            lblFila.setMinWidth(48);
+            gridAsientos.add(lblFila, 0, rowIndex);
+
+            int colIndex = 1;
+            for (Asiento asiento : entry.getValue()) {
+                Button btnAsiento = crearBotonAsiento(funcion, asiento);
+                gridAsientos.add(btnAsiento, colIndex, rowIndex);
+                colIndex++;
+            }
+            rowIndex++;
+        }
+    }
+
+    private Button crearBotonAsiento(Funcion funcion, Asiento asiento) {
+        Button btn = new Button(asiento.getNumero());
+        btn.setPrefWidth(54);
+        btn.setPrefHeight(40);
+        btn.setAlignment(Pos.CENTER);
+
+        boolean estaSeleccionado = asientosSeleccionados.contains(asiento);
+        boolean estaDisponible = asiento.isDisponible();
+
+        if (!estaDisponible) {
+            btn.setDisable(true);
+            btn.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;");
+            btn.setTooltip(new Tooltip("Asiento Ocupado"));
+        } else if (estaSeleccionado) {
+            btn.setStyle("-fx-background-color: #FFB300; -fx-text-fill: #212121; -fx-font-weight: bold; -fx-background-radius: 6; -fx-border-color: #E65100; -fx-border-radius: 6; -fx-border-width: 2;");
+            btn.setTooltip(new Tooltip("Seleccionado (Clic para quitar)"));
+        } else if (asiento.getTipoAsiento() == TipoAsiento.VIP) {
+            btn.setStyle("-fx-background-color: #6A1B9A; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;");
+            btn.setTooltip(new Tooltip("Disponible - VIP"));
+        } else {
+            btn.setStyle("-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;");
+            btn.setTooltip(new Tooltip("Disponible - " + asiento.getTipoAsiento()));
+        }
+
+        btn.setOnAction(event -> alternarSeleccionAsiento(funcion, asiento));
+        return btn;
+    }
+
+    private void alternarSeleccionAsiento(Funcion funcion, Asiento asiento) {
+        if (asientosSeleccionados.contains(asiento)) {
+            asientosSeleccionados.remove(asiento);
+            Entrada entradaAEliminar = null;
+            for (Entrada e : entradasSeleccionadas) {
+                if (e.getAsiento() != null && e.getAsiento().equals(asiento.getNumero())) {
+                    entradaAEliminar = e;
+                    break;
+                }
+            }
+            if (entradaAEliminar != null) {
+                entradasSeleccionadas.remove(entradaAEliminar);
+            }
+        } else {
+            String tipoActual = cmbTipoEntrada.getSelectionModel().getSelectedItem();
+            if (!"3D".equalsIgnoreCase(tipoActual)) {
+                if (asiento.getTipoAsiento() == TipoAsiento.VIP) {
+                    cmbTipoEntrada.getSelectionModel().select("VIP");
+                } else {
+                    cmbTipoEntrada.getSelectionModel().select("General");
+                }
+            }
+
+            String tipoFinal = cmbTipoEntrada.getSelectionModel().getSelectedItem();
+            boolean gafas = chkGafas3D != null && chkGafas3D.isSelected();
+
+            String idEntrada = "ENT-" + contadorEntradas;
+            contadorEntradas++;
+
+            Entrada entrada = compraController.crearEntradaDecorada(idEntrada, funcion, asiento, tipoFinal, gafas);
+            entradasSeleccionadas.add(entrada);
+            asientosSeleccionados.add(asiento);
+        }
+
+        actualizarTextoAsientosSeleccionados();
         actualizarCarrito();
+        dibujarMapaAsientos(funcion);
+    }
+
+    private void actualizarTextoAsientosSeleccionados() {
+        if (lblAsientoActivo == null) {
+            return;
+        }
+        if (asientosSeleccionados.isEmpty()) {
+            lblAsientoActivo.setText("Asientos seleccionados: Ninguno");
+        } else {
+            StringBuilder sb = new StringBuilder("Asientos seleccionados: ");
+            for (int i = 0; i < asientosSeleccionados.size(); i++) {
+                sb.append(asientosSeleccionados.get(i).getNumero());
+                if (i < asientosSeleccionados.size() - 1) {
+                    sb.append(", ");
+                }
+            }
+            lblAsientoActivo.setText(sb.toString());
+        }
     }
 
     @FXML
@@ -154,14 +262,13 @@ public class CompraViewController {
     void onConfirmarCompra() {
         Funcion funcion = cmbFunciones.getSelectionModel().getSelectedItem();
         if (funcion == null || entradasSeleccionadas.isEmpty()) {
-            mostrarAlerta("Advertencia", "Debe seleccionar al menos una entrada antes de confirmar la compra.");
+            mostrarAlerta("Advertencia", "Seleccione al menos un asiento en el mapa gráfico de la sala.");
             return;
         }
 
-        int puntosUsar = 0;
         if (txtPuntosUsar != null && !txtPuntosUsar.getText().isEmpty()) {
             try {
-                puntosUsar = Integer.parseInt(txtPuntosUsar.getText());
+                Integer.parseInt(txtPuntosUsar.getText());
             } catch (NumberFormatException e) {
                 mostrarAlerta("Error", "Los puntos a redimir deben ser un número entero.");
                 return;
@@ -183,10 +290,13 @@ public class CompraViewController {
             );
 
             if (compraExitosa) {
-                mostrarAlerta("Compra Exitosa", "¡Compra procesada correctamente! Revise su historial y puntos acumulados.");
+                mostrarAlerta("Compra Exitosa",
+                        "¡Compra procesada para " + clienteActivo.getNombre() + "!\nSaldo restante: $" + clienteActivo.getTarjetaVirtual().getSaldo());
                 limpiarCompra();
+                dibujarMapaAsientos(funcion);
             } else {
-                mostrarAlerta("Transacción Rechazada", "No se pudo completar la compra. Verifique que la tarjeta esté activa, tenga saldo suficiente y los asientos sigan disponibles.");
+                mostrarAlerta("Transacción Rechazada",
+                        "No se pudo completar la compra. Verifique que la tarjeta esté activa, tenga saldo suficiente y los asientos sigan disponibles.");
             }
         } catch (Exception e) {
             mostrarAlerta("Error en la transacción", e.getMessage());
@@ -194,10 +304,8 @@ public class CompraViewController {
     }
 
     private Cliente obtenerClienteActivo() {
-        for (Usuario u : compraController.obtenerUsuarios()) {
-            if (u instanceof Cliente) {
-                return (Cliente) u;
-            }
+        if (app != null && app.getUsuarioLogueado() instanceof Cliente) {
+            return (Cliente) app.getUsuarioLogueado();
         }
         return null;
     }
@@ -207,6 +315,7 @@ public class CompraViewController {
         productosSeleccionados.clear();
         asientosSeleccionados.clear();
         carritoResumenObs.clear();
+        if (lblAsientoActivo != null) lblAsientoActivo.setText("Asientos seleccionados: Ninguno");
         if (txtPuntosUsar != null) txtPuntosUsar.clear();
         if (lblTotalCompra != null) lblTotalCompra.setText("Total Estimado: $0.0");
     }

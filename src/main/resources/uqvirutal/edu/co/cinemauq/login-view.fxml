@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uqvirutal.edu.co.cinemauq.viewController.LoginViewController">
+    <children>
+        <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="25.0" left="35.0" right="35.0" top="25.0" />
+            </padding>
+            <children>
+
+                <Label text="CINEMA UQ">
+                    <font>
+                        <Font name="System Bold" size="26.0" />
+                    </font>
+                </Label>
+
+                <Label text="Plataforma de Gestión de Cine y Venta de Entradas">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+
+                <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+
+                        <Tab text="Iniciar Sesión">
+                            <content>
+                                <VBox spacing="12.0">
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                    <children>
+                                        <Label text="Correo Electrónico:" />
+                                        <TextField fx:id="txtCorreoLogin" promptText="ejemplo@uqvirtual.edu.co" />
+
+                                        <Label text="Contraseña:" />
+                                        <PasswordField fx:id="txtContrasenaLogin" promptText="Ingrese su contraseña" />
+
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onIniciarSesion" style="-fx-background-color: #1565C0; -fx-text-fill: white;" text="Ingresar al Sistema">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Button>
+
+                                        <Separator />
+
+                                        <Label text="Accesos rápidos de demostración:" textFill="#616161">
+                                            <font>
+                                                <Font size="11.0" />
+                                            </font>
+                                        </Label>
+
+                                        <HBox spacing="10.0">
+                                            <children>
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAccesoRapidoCliente" text="Demo Cliente" HBox.hgrow="ALWAYS" />
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAccesoRapidoAdmin" text="Demo Admin" HBox.hgrow="ALWAYS" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <Tab text="Registrarse (Cliente)">
+                            <content>
+                                <VBox spacing="10.0">
+                                    <padding>
+                                        <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                                    </padding>
+                                    <children>
+                                        <Label text="ID / Documento de Identidad:" />
+                                        <TextField fx:id="txtIdRegistro" promptText="Ej. CLI-02 o 1094900123" />
+
+                                        <Label text="Nombre Completo:" />
+                                        <TextField fx:id="txtNombreRegistro" promptText="Ej. Laura Gómez" />
+
+                                        <Label text="Correo Electrónico:" />
+                                        <TextField fx:id="txtCorreoRegistro" promptText="laura@uqvirtual.edu.co" />
+
+                                        <Label text="Contraseña:" />
+                                        <PasswordField fx:id="txtContrasenaRegistro" promptText="Cree una contraseña" />
+
+                                        <Label text="Número de Tarjeta Virtual a asociar:" />
+                                        <TextField fx:id="txtNumeroTarjetaRegistro" promptText="Ej. TARJ-1002" />
+
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRegistrarCliente" style="-fx-background-color: #2E7D32; -fx-text-fill: white;" text="Crear Cuenta y Tarjeta Virtual">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                    </tabs>
+                </TabPane>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
