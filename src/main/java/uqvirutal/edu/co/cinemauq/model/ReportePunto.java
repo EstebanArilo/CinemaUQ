@@ -11,6 +11,11 @@ public class ReportePunto extends Reporte{
         this.repoClientes = repoClientes;
     }
 
+    /**
+     * Genera el cuerpo textual del reporte sobre los puntos acumulados a un cliente
+     * si es que el cliente esta registrado .
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Detalle de Puntos de Clientes:\n";

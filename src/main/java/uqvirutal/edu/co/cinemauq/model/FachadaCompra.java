@@ -5,6 +5,18 @@ import java.util.ArrayList;
 public class FachadaCompra {
     private int contadorCompras = 1;
     private GestorReembolso gestorReembolso = new GestorReembolso();
+
+    /**
+     *Procesa la compra de entradas y productos de confiteria
+     * Verifica la disponibilidad de los asientos seleccionados y construye la compra mediante el patron builder
+     * Valida y descuenta el saldo de la tarjeta virtual
+     * Registra la compra como pagada en el historial de cliente y acumula los puntos .
+     * @param cliente
+     * @param funcion
+     * @param asientosSeleccionados
+     * @param productos
+     * @return
+     */
     public boolean procesarCompra(Cliente cliente, Funcion funcion, ArrayList<Asiento> asientosSeleccionados, ArrayList<ProductoConfiteria> productos) {
 
         String idCompraStr = "CMP-" + contadorCompras;
@@ -59,6 +71,12 @@ public class FachadaCompra {
         return true;
     }
 
+    /**
+     * Valida y descueta el saldo de la tarjeta virtual despues de la compra .
+     * @param tarjeta
+     * @param total
+     * @return
+     */
     public boolean validarYDescontarSaldo(TarjetaVirtual tarjeta, double total) {
         if (tarjeta == null || !tarjeta.isActiva()) {
             return false;
@@ -69,6 +87,13 @@ public class FachadaCompra {
         tarjeta.descontarSaldo(total);
         return true;
     }
+
+    /**
+     * Cancela la compra aplicando el reembolso .
+     * @param compra
+     * @return
+     * @throws CancelacionNoPermitidaException
+     */
     public Reembolso cancelarCompra(Compra compra) throws CancelacionNoPermitidaException {
         return gestorReembolso.procesarReembolso(compra);
     }

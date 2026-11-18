@@ -13,6 +13,10 @@ public class ReporteOcupacionSala extends Reporte{
         this.repoFunciones = repoFunciones;
     }
 
+    /**
+     * Genera el cuerpo textual del reporte sobre la ocupacion de las salas y las funciones programadas .
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Reporte de Ocupacion de Salas y Funciones:\n";

@@ -11,6 +11,10 @@ public class ReporteEntrada extends Reporte{
         this.repoEntrada = repoEntrada;
     }
 
+    /**
+     * Genera el cuerpo textual del reporte sobre las entradas vendidads .
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Detalle de Entradas Vendidas:\n";

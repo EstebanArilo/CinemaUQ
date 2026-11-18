@@ -35,6 +35,10 @@ public class Cliente extends Usuario implements IObservador{
         this.listPuntos = listPuntos;
     }
 
+    /**
+     *Metodo para la acumulacion de puntos de lealtad .
+     * @param cantidad
+     */
 
     public void acumularPuntos(double cantidad) {
         LocalDate fechaObtencion = LocalDate.now();
@@ -44,6 +48,10 @@ public class Cliente extends Usuario implements IObservador{
         this.listPuntos.add(nuevoPunto);
     }
 
+    /**
+     * Recibe una notificacion y la almacena en el historial de notificaciones de cliente .
+     * @param notificacion
+     */
     @Override
     public void actualizar(Notificacion notificacion) {
         if (notificacion != null) {

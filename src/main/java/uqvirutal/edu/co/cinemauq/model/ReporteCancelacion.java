@@ -11,6 +11,10 @@ public class ReporteCancelacion extends Reporte{
         this.repoCompra = repoCompra;
     }
 
+    /**
+     *Genera el cuerpo textual del reporte sobre las compras cuyo estado sea CANCELADA .
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Detalle de Compras Canceladas:\n";

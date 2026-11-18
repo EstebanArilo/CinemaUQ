@@ -72,6 +72,10 @@ public class Compra {
             this.funcion = funcion;
             return this;
         }
+
+        /**
+         * Recalcula y actualiza el monto total de la compra .
+         */
         private void recalcularTotal() {
             double suma = 0.0;
             for (Entrada entrada : entradas) {
