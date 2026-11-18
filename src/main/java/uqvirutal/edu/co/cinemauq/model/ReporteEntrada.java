@@ -12,7 +12,7 @@ public class ReporteEntrada extends Reporte{
     }
 
     /**
-     * Genera el cuerpo textual del reporte sobre las entradas vendidads.
+     * Genera el cuerpo textual del reporte sobre las entradas vendidads .
      * @return
      */
     @Override

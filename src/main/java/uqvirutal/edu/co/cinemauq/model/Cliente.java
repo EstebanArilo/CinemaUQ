@@ -36,7 +36,7 @@ public class Cliente extends Usuario implements IObservador{
     }
 
     /**
-     *Metodo para la acumulacion de puntos de lealtad.
+     *Metodo para la acumulacion de puntos de lealtad .
      * @param cantidad
      */
 
@@ -49,7 +49,7 @@ public class Cliente extends Usuario implements IObservador{
     }
 
     /**
-     * Recibe una notificacion y la almacena en el historial de notificaciones de cliente.
+     * Recibe una notificacion y la almacena en el historial de notificaciones de cliente .
      * @param notificacion
      */
     @Override

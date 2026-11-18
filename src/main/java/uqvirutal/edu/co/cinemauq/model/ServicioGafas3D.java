@@ -10,7 +10,7 @@ public class ServicioGafas3D extends DecoradorEntrada{
 
     /**
      * Calcula el precio total de la entrada decorada añadiendo el valor de
-     * las gafas 3D.
+     * las gafas 3D .
      * @return
      */
     @Override
@@ -20,7 +20,7 @@ public class ServicioGafas3D extends DecoradorEntrada{
 
     /**
      * Obtiene la descriçion detallada de la entrada añadiendo el texto
-     * del servicio adicional de gafas 3D.
+     * del servicio adicional de gafas 3D .
      * @return
      */
     @Override

@@ -13,7 +13,7 @@ public class ReporteVenta extends Reporte{
 
     /**
      * Genera el cuerpo textual del reporte sobre las ventas registradas en
-     * un periodo de tiempo dado.
+     * un periodo de tiempo dado .
      * @return
      */
     @Override

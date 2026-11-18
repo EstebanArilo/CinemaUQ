@@ -12,7 +12,7 @@ public class ServicioNotificacion{
 
     /**
      *Suscribe un nuevo observador a la lista de destinatarios
-     * verificando que no sea nulo y no se encuentre registrado anteriormente
+     * verificando que no sea nulo y no se encuentre registrado anteriormente .
      * @param observador
      */
     public void agregarObservador(IObservador observador) {
@@ -22,7 +22,7 @@ public class ServicioNotificacion{
     }
 
     /**
-     *Cancela la suscripcion de un observador en el servicio de notificaciones
+     *Cancela la suscripcion de un observador en el servicio de notificaciones .
      * @param observador
      */
     public void eliminarObservador(IObservador observador) {
@@ -30,7 +30,7 @@ public class ServicioNotificacion{
     }
 
     /**
-     * Notifica a todos los observadores suscritos al serrvicio
+     * Notifica a todos los observadores suscritos al serrvicio .
      * @param mensaje
      */
     public void notificarTodos(String mensaje) {
@@ -41,7 +41,7 @@ public class ServicioNotificacion{
     }
 
     /**
-     * Notifica a los usuariis sucritos al servicio.
+     * Notifica a los usuarios sucritos al servicio .
      * @param destino
      * @param mensaje
      */
