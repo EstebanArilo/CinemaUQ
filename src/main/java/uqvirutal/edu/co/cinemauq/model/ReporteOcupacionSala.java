@@ -14,7 +14,7 @@ public class ReporteOcupacionSala extends Reporte{
     }
 
     /**
-     * Genera el cuerpo textual del reporte sobre la ocupacion de las salas y las funciones programadas
+     * Genera el cuerpo textual del reporte sobre la ocupacion de las salas y las funciones programadas.
      * @return
      */
     @Override

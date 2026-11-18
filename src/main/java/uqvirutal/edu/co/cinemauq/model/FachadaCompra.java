@@ -10,7 +10,7 @@ public class FachadaCompra {
      *Procesa la compra de entradas y productos de confiteria
      * Verifica la disponibilidad de los asientos seleccionados y construye la compra mediante el patron builder
      * Valida y descuenta el saldo de la tarjeta virtual
-     * Registra la compra como pagada en el historial de cliente y acumula los puntos
+     * Registra la compra como pagada en el historial de cliente y acumula los puntos.
      * @param cliente
      * @param funcion
      * @param asientosSeleccionados
@@ -72,7 +72,7 @@ public class FachadaCompra {
     }
 
     /**
-     * Valida y descueta el saldo de la tarjeta virtual despues de la compra
+     * Valida y descueta el saldo de la tarjeta virtual despues de la compra.
      * @param tarjeta
      * @param total
      * @return
@@ -89,7 +89,7 @@ public class FachadaCompra {
     }
 
     /**
-     * Cancela la compra aplicando el reembolso
+     * Cancela la compra aplicando el reembolso.
      * @param compra
      * @return
      * @throws CancelacionNoPermitidaException

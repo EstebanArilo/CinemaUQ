@@ -12,7 +12,7 @@ public class ReporteRecarga extends Reporte{
     }
 
     /**
-     * Genera el cuerpo textual del reporte sobre las recargas a la tarjeta virtual
+     * Genera el cuerpo textual del reporte sobre las recargas a la tarjeta virtual.
      * @return
      */
     @Override

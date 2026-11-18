@@ -41,7 +41,7 @@ public class ServicioNotificacion{
     }
 
     /**
-     * Notifica a los usuariis sucritos al servicio
+     * Notifica a los usuariis sucritos al servicio.
      * @param destino
      * @param mensaje
      */

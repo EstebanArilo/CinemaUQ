@@ -12,7 +12,7 @@ public class ReporteCancelacion extends Reporte{
     }
 
     /**
-     *Genera el cuerpo textual del reporte sobre las compras cuyo estado sea CANCELADA
+     *Genera el cuerpo textual del reporte sobre las compras cuyo estado sea CANCELADA.
      * @return
      */
     @Override

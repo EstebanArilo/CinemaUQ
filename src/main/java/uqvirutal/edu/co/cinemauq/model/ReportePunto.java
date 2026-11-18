@@ -13,7 +13,7 @@ public class ReportePunto extends Reporte{
 
     /**
      * Genera el cuerpo textual del reporte sobre los puntos acumulados a un cliente
-     * si es que el cliente esta registrado
+     * si es que el cliente esta registrado.
      * @return
      */
     @Override

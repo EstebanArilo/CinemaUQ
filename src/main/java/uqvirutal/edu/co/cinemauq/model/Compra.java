@@ -74,7 +74,7 @@ public class Compra {
         }
 
         /**
-         * Recalcula y actualiza el monto total de la compra
+         * Recalcula y actualiza el monto total de la compra.
          */
         private void recalcularTotal() {
             double suma = 0.0;

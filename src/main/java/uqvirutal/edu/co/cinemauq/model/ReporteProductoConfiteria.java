@@ -13,7 +13,7 @@ public class ReporteProductoConfiteria extends Reporte{
 
     /**
      * Genera el cuerpo textual del reporte sobre los productos de confiteria,
-     * si estan registrados o no y su valor
+     * si estan registrados o no y su valor.
      * @return
      */
     @Override
