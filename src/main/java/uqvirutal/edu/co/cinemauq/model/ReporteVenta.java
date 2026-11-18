@@ -11,6 +11,11 @@ public class ReporteVenta extends Reporte{
         this.repoCompras = repoCompras;
     }
 
+    /**
+     * Genera el cuerpo textual del reporte sobre las ventas registradas en
+     * un periodo de tiempo dado
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Detalle de Ventas Registradas:\n";

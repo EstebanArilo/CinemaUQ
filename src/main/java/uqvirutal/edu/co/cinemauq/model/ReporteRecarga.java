@@ -11,6 +11,10 @@ public class ReporteRecarga extends Reporte{
         this.repoMovimientos = repoMovimientos;
     }
 
+    /**
+     * Genera el cuerpo textual del reporte sobre las recargas a la tarjeta virtual
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Detalle de Recargas de Tarjetas Virtuales:\n";
@@ -19,7 +23,6 @@ public class ReporteRecarga extends Reporte{
         if (repoMovimientos != null && !repoMovimientos.isEmpty()) {
             for (int i = 0; i < repoMovimientos.size(); i++) {
                 Movimiento mov = repoMovimientos.get(i);
-                // Filtramos solo los movimientos que sean de tipo RECARGA
                 if (mov.getTipoMovimiento() == TipoMovimiento.RECARGA) {
                     contenido = contenido + "- ID Mov: " + mov.getId()
                             + " | Monto: $" + mov.getMonto()

@@ -11,6 +11,11 @@ public class ReporteProductoConfiteria extends Reporte{
         this.repoProducto = repoProducto;
     }
 
+    /**
+     * Genera el cuerpo textual del reporte sobre los productos de confiteria,
+     * si estan registrados o no y su valor
+     * @return
+     */
     @Override
     public String generarContenido() {
         String contenido = "Detalle de Productos de Confiteria:\n";
