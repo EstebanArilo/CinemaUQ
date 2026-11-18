@@ -35,6 +35,7 @@ public class Cliente extends Usuario implements IObservador{
         this.listPuntos = listPuntos;
     }
 
+
     public void acumularPuntos(double cantidad) {
         LocalDate fechaObtencion = LocalDate.now();
         int anioVencimiento = fechaObtencion.getYear() + 1;

@@ -28,7 +28,9 @@ public class Administrador extends Usuario {
     public void setServicioNotificaciones(ServicioNotificacion servicioNotificacion) {
         this.servicioNotificacion = servicioNotificacion;
     }
-
+    /**
+     * Metodo para la gestion de peliculas
+     */
     public void gestionarPeliculas(Pelicula pelicula) {
         if (pelicula != null) {
             Cine.getInstancia().agregarPelicula(pelicula);
@@ -41,7 +43,9 @@ public class Administrador extends Usuario {
             }
         }
     }
-
+    /**
+     * Metodo para la gestion de Funciones
+     */
     public void gestionarFunciones(Funcion funcion) {
         if (funcion != null) {
             Cine.getInstancia().agregarFuncion(funcion);
@@ -54,7 +58,9 @@ public class Administrador extends Usuario {
             }
         }
     }
-
+    /**
+     * Metodo para cancelar funciones
+     */
     public void cancelarFuncion(Funcion funcion) {
         if (funcion != null) {
             funcion.cancelarFuncion();
@@ -67,6 +73,9 @@ public class Administrador extends Usuario {
             }
         }
     }
+    /**
+     * Metodo para recargar la tarjeta virtual
+     */
     public void recargarTarjeta(TarjetaVirtual tarjeta, double monto) {
         if (tarjeta != null) {
             tarjeta.recargar(monto);
@@ -89,11 +98,16 @@ public class Administrador extends Usuario {
             System.out.println("Error: La tarjeta virtual no es válida.");
         }
     }
+    /**
+     * Metodo para la gestion de salas
+     */
     public void gestionarSalas(Sala sala) {
         Cine.getInstancia().agregarSala(sala);
         System.out.println("Sala gestionada y registrada: " + sala.getNombre());
     }
-
+    /**
+     * Metodo para la gestion de productos
+     */
     public void gestionarProductos() {
         int total = 0;
         for (ProductoConfiteria p : listProductos) {
@@ -101,13 +115,17 @@ public class Administrador extends Usuario {
         }
         System.out.println("Gestionando catálogo de productos de confitería. Total productos: " + total);
     }
-
+    /**
+     * Metodo para generar reportes
+     */
     public void generarReporte(FactoryReporte factory, LocalDate fechaInicio, LocalDate fechaFin, Exportador exportador, String rutaDestino) {
         Reporte reporte = factory.crearReporte(fechaInicio, fechaFin, exportador);
         reporte.exportar(rutaDestino);
         System.out.println("Reporte generado por el administrador exitosamente.");
     }
-
+    /**
+     * Metodo para crear combos de confiteria
+     */
     public ComboConfiteria crearCombo(String id, String nombre, double descuento, ArrayList<ProductoConfiteria> productosBase) {
         ComboPersonalizado.Builder builder = new ComboPersonalizado.Builder()
                 .setIdProducto(id)
@@ -122,20 +140,31 @@ public class Administrador extends Usuario {
         this.listProductos.add(nuevoCombo);
         return nuevoCombo;
     }
-
+    /**
+     * Metodo para eliminar los combos
+     */
     public boolean eliminarCombo(ComboConfiteria combo) {
         return this.listProductos.remove(combo);
     }
-
+    /**
+     * Metodo para crear un producto de confiteria
+     */
     public ProductoSimple crearProducto(String id, String nombre, double precio, CategoriaProducto categoria) {
         ProductoSimple nuevoProducto = new ProductoSimple(id, precio, nombre, categoria);
         this.listProductos.add(nuevoProducto);
         return nuevoProducto;
     }
-
+    /**
+     * Metodo para eliminar el producto de confiteria
+     */
     public boolean eliminarProducto(ProductoConfiteria producto) {
         return this.listProductos.remove(producto);
     }
+
+
+    /**
+     * CRUD CLIENTE
+     */
 
     public boolean crearCliente(Cliente cliente) {
         if (cliente != null && buscarCliente(cliente.getId()) == null) {

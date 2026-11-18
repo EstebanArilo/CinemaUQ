@@ -15,7 +15,9 @@ public class TarjetaVirtual {
         this.activa = activa;
         this.listMovimientos = listMovimientos;
     }
-
+    /**
+     * Metodo para descontar el saldo de la tarjeta
+     */
     public boolean descontarSaldo(double monto) {
         if (!activa || saldo < monto) {
             return false;
@@ -73,7 +75,9 @@ public class TarjetaVirtual {
     public void setListMovimientos(ArrayList<Movimiento> listMovimientos) {
         this.listMovimientos = listMovimientos;
     }
-
+    /**
+     * Metodo para devolver el saldo por un reembolso
+     */
     public void devolverSaldo(double monto) {
         this.saldo += monto;
         String idMov = "MOV-" + (this.listMovimientos.size() + 1);
@@ -84,6 +88,9 @@ public class TarjetaVirtual {
                 java.time.LocalDate.now()
         ));
     }
+    /**
+     * Metodo para recargarle dinero a la tarjeta
+     */
     public void recargar(double monto) {
         this.saldo += monto;
         String idMov = "MOV-" + contadorMovimientos;

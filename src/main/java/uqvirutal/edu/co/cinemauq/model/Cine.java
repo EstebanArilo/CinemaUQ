@@ -45,7 +45,9 @@ public class Cine {
     public void agregarUsuario(Usuario usuario) {
         this.listaUsuarios.add(usuario);
     }
-
+    /**
+     * Metodo para buscar una funcion
+     */
     public Funcion buscarFuncion(String idFuncion) {
         for (Funcion funcion : listaFunciones) {
             if (funcion.getIdFuncion().equalsIgnoreCase(idFuncion)) {
@@ -54,14 +56,18 @@ public class Cine {
         }
         return null;
     }
-
+    /**
+     * Metodo para agregar una reseña
+     */
     public void agregarResena(Resena resena) {
         if (this.listaResena != null) {
             this.listaResena.add(resena);
             System.out.println("Reseña agregada exitosamente al sistema.");
         }
     }
-
+    /**
+     * Metodo para calcular el promedio de calificaciones de las reseñas
+     */
     public double calcularPromedioCalificacion() {
         if (listaResena == null) {
             return 0.0;

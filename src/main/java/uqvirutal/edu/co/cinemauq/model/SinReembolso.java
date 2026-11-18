@@ -1,6 +1,9 @@
 package uqvirutal.edu.co.cinemauq.model;
 
 public class SinReembolso implements PoliticaReembolso {
+    /**
+     * Metodo para que no se le permita reembolsar al cliente si faltan 2 horas para la funcion
+     */
     @Override
     public double calcularReembolso(double montoPagado, double horasRestantes) throws CancelacionNoPermitidaException {
         throw new CancelacionNoPermitidaException(
